@@ -1,0 +1,18 @@
+name: "Void Build Vite"
+author: "Jake Gordon <jake@void.dev>"
+description: "Default web builder for Void games using Vite"
+inputs:
+  taskName:
+    description: "(optional) bun task to build the game"
+    required: false
+    default: "build"
+  deployTarget:
+    description: "(optional) set VITE_DEPLOY_TARGET if you require conditional code based on import.meta.env.VITE_DEPLOY_TARGET"
+    required: false
+    default: "web"
+runs:
+  using: "docker"
+  image: "docker://vaguevoid/build-vite:v1"
+  env:
+    taskName: ${{ inputs.taskName }}
+    deployTarget: ${{ inputs.deployTarget }}

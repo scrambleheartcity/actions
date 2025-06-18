@@ -1,0 +1,21 @@
+name: "Void Package Textures"
+author: "Jake Gordon <jake@void.dev>"
+description: "Default texture packager for Void games"
+inputs:
+  path:
+    description: "path to your bundled web game"
+    default: "dist"
+  config:
+    description: "path to image compressor configuration file"
+    default: "image-compressor.json"
+    required: true
+  threads:
+    description: "(optional) thread count for image compressor (use 4 for standard GitHub Runner)"
+    default: 4
+runs:
+  using: "docker"
+  image: "docker://vaguevoid/package-textures:v1"
+  env:
+    path: ${{ inputs.path }}
+    config: ${{ inputs.config }}
+    threads: ${{ inputs.threads }}

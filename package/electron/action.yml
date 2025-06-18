@@ -1,0 +1,42 @@
+name: "Void Package Electron"
+author: "Jake Gordon <jake@void.dev>"
+description: "Default Electron packager for Void games"
+inputs:
+  bundle:
+    description: "path to your bundled web game"
+    default: "dist"
+  releasePath:
+    description: "directory for packaged releases"
+    default: "release"
+  executable:
+    description: "executable file name prefix"
+    default: "electron"
+  platform:
+    description: "target platform (win32 | darwin | linux)" 
+    required: true
+    type: choice
+    options:
+      - win32
+      - linux
+      - darwin
+  arch:
+    description: "target architecture (x64 | arm64)"
+    required: true
+    type: choice
+    options:
+      - x64
+      - arm64
+    default: "x64"
+  electronVersion:
+    description: "version of electron"
+    default: "31.0.2"
+runs:
+  using: "docker"
+  image: "docker://vaguevoid/package-electron:v1"
+  env:
+    bundle: ${{ inputs.bundle }}
+    releasePath: ${{ inputs.releasePath }}
+    executable: ${{ inputs.executable }}
+    platform: ${{ inputs.platform }}
+    arch: ${{ inputs.arch }}
+    electronVersion: ${{ inputs.electronVersion }}
